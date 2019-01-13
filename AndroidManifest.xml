@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gallantrealm.android"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="27" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false" />
+
+    <application
+        android:label="@string/app_name"
+        android:persistent="false" >
+        <!--
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        -->
+        <!-- in app purchasing -->
+        <service android:name="com.gallantrealm.android.billing.BillingService" />
+
+        <receiver android:name="com.gallantrealm.android.billing.BillingReceiver" >
+            <intent-filter>
+                <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
+                <action android:name="com.android.vending.billing.RESPONSE_CODE" />
+                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.amazon.inapp.purchasing.ResponseReceiver" >
+            <intent-filter>
+                <action
+                    android:name="com.amazon.inapp.purchasing.NOTIFY"
+                    android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
