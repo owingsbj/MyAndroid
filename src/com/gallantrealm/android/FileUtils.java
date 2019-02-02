@@ -482,7 +482,7 @@ public class FileUtils {
     }
 
     /**
-     * File and folder comparator. TODO Expose sorting option method
+     * File and folder comparator. 
      *
      * @author paulburke
      */
