@@ -17,4 +17,6 @@ MyAndroid contains modified versions of the following open source:
 
 - _android-toolbox_ by Victor Reiser.  The current original is at https://github.com/Knickedi/android-toolbox.  MIT License. 
 
+- _aFileChooser_ by Paul Burke.  The original is at https://github.com/iPaulPro/aFileChooser.  Apache License.
+
 I've left the original package names should you want to compare and update.  I highly appreciate the efforts of these developers and their generous donation to the open source community.
