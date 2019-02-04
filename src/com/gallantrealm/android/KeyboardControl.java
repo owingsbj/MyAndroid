@@ -1,6 +1,5 @@
 package com.gallantrealm.android;
 
-import com.gallantrealm.android.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -71,7 +70,7 @@ public class KeyboardControl extends LinearLayout implements OnTouchListener {
 	private float initialX; // for pitch bend
 	private float initialY; // for expression
 
-	private final boolean[] keyPressed = new boolean[32];
+	private final boolean[] keyPressed = new boolean[128];
 	int[] lastNote = new int[20]; // 20 fingers max (do you have more?)
 
 	public KeyboardControl(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -361,12 +360,16 @@ public class KeyboardControl extends LinearLayout implements OnTouchListener {
 		if (listener != null) {
 			if (type == PRESS) {
 				listener.onNotePressed(note, velocity);
+				setKeyPressed(note, true);
 			} else if (type == RELEASE) {
 				listener.onNoteReleased(note);
+				setKeyPressed(note, false);
 			} else if (type == SLIDE) {
 				if (lastNote[finger] != note) {
 					listener.onNoteReleased(lastNote[finger]);
 					listener.onNotePressed(note, velocity);
+					setKeyPressed(lastNote[finger], false);
+					setKeyPressed(note, true);
 				} else {
 					listener.onNoteAftertouch(note, velocity);
 				}
@@ -395,6 +398,8 @@ public class KeyboardControl extends LinearLayout implements OnTouchListener {
 	}
 
 	private View getKeyForNote(int note) {
+		note = note - 48;
+		System.out.println(note);
 		if (note <= 0) {
 			return key1;
 		} else if (note == 1) {
