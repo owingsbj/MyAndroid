@@ -154,8 +154,6 @@ public class Translator {
 			translation = "Opción 2";
 		} else if (text.equals("Option 3")) {
 			translation = "Opción 3";
-		} else if (text.equals("Share it on Heyzap >>")) {
-			translation = "Comparte en Heyzap >>";
 		} else {
 			System.out.println("} else if (text.equals(\"" + text + "\")) {");
 			System.out.println("  translation = \"\";");
@@ -194,8 +192,6 @@ public class Translator {
 			translation = "Option 2";
 		} else if (text.equals("Option 3")) {
 			translation = "Option 3";
-		} else if (text.equals("Share it on Heyzap >>")) {
-			translation = "Partagez-le sur Heyzap >>";
 		} else {
 			System.out.println("} else if (text.equals(\"" + text + "\")) {");
 			System.out.println("  translation = \"\";");
@@ -234,8 +230,6 @@ public class Translator {
 			translation = "Option 2";
 		} else if (text.equals("Option 3")) {
 			translation = "Option 3";
-		} else if (text.equals("Share it on Heyzap >>")) {
-			translation = "Teilen Sie es auf Heyzap >>";
 		} else {
 			System.out.println("} else if (text.equals(\"" + text + "\")) {");
 			System.out.println("  translation = \"\";");
@@ -274,8 +268,6 @@ public class Translator {
 			translation = "вариант 2";
 		} else if (text.equals("Option 3")) {
 			translation = "вариант 3";
-		} else if (text.equals("Share it on Heyzap >>")) {
-			translation = "Доля его на Heyzap >>";
 		} else {
 			System.out.println("} else if (text.equals(\"" + text + "\")) {");
 			System.out.println("  translation = \"\";");
