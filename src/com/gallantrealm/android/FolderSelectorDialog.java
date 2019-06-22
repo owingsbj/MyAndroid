@@ -47,7 +47,7 @@ public class FolderSelectorDialog extends Dialog {
 		setContentView(R.layout.folderselector_dialog);
 		setCancelable(true);
 		setCanceledOnTouchOutside(true);
-		((TextView)findViewById(R.id.titleText)).setText(title);
+		((TextView) findViewById(R.id.titleText)).setText(title);
 	}
 
 	@Override
@@ -86,8 +86,8 @@ public class FolderSelectorDialog extends Dialog {
 				}
 			}
 		});
-		
-		Button selectButton = (Button)findViewById(R.id.selectButton);
+
+		Button selectButton = (Button) findViewById(R.id.selectButton);
 		selectButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				FolderSelectorDialog.this.dismiss();
@@ -165,7 +165,7 @@ public class FolderSelectorDialog extends Dialog {
 				try {
 					String folder = currentFolder;
 					files.clear();
-					if (!currentFolder.equals(initialFolder)) {
+					if (!currentFolder.equals("/")) {
 						files.add("..");
 					}
 					files.addAll(getFolderNames(folder));
@@ -196,11 +196,12 @@ public class FolderSelectorDialog extends Dialog {
 		if (!folderFile.exists() || !folderFile.isDirectory()) {
 			return fileNames;
 		}
-		for (File file : folderFile.listFiles()) {
-			if (file.isDirectory()) {
-				// Add "/" to directory names to identify them in the list
-				fileNames.add(file.getName() + "/");
-			}
+		File[] files = folderFile.listFiles();
+		if (files == null) {
+			return fileNames;
+		}
+		for (File file : files) {
+			fileNames.add(file.getName() + "/");
 		}
 		Collections.sort(fileNames, new Comparator<String>() {
 			public int compare(String o1, String o2) {
