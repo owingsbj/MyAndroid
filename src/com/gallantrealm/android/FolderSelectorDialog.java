@@ -201,7 +201,9 @@ public class FolderSelectorDialog extends Dialog {
 			return fileNames;
 		}
 		for (File file : files) {
-			fileNames.add(file.getName() + "/");
+			if (file.isDirectory()) {
+				fileNames.add(file.getName() + "/");
+			}
 		}
 		Collections.sort(fileNames, new Comparator<String>() {
 			public int compare(String o1, String o2) {
