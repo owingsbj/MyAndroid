@@ -22,13 +22,14 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class FolderSelectorDialog extends Dialog {
 
 	public interface SelectionListener {
-		public void onFileselected(String filename);
+		public void onFolderSelected(String foldername);
 	}
 
 	protected Activity activity;
@@ -37,16 +38,16 @@ public class FolderSelectorDialog extends Dialog {
 	protected String initialFolder;
 	protected String currentFolder;
 	protected List<String> files = new ArrayList<String>();
-	protected String extension;
+	private String selection = null;
 
-	public FolderSelectorDialog(Activity activity, String extension) {
+	public FolderSelectorDialog(Activity activity, String title) {
 		super(activity, R.style.Theme_Dialog);
 		this.activity = activity;
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.fileselector_dialog);
+		setContentView(R.layout.folderselector_dialog);
 		setCancelable(true);
 		setCanceledOnTouchOutside(true);
-		this.extension = extension;
+		((TextView)findViewById(R.id.titleText)).setText(title);
 	}
 
 	@Override
@@ -61,7 +62,7 @@ public class FolderSelectorDialog extends Dialog {
 		fileListView.setOnItemClickListener(new OnItemClickListener() {
 			@SuppressLint("NewApi")
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				final String selection = "" + fileListAdapter.getItem(position);
+				selection = "" + fileListAdapter.getItem(position);
 				System.out.println("FileSelectorDialog.onItemClick: " + selection + " in folder: " + currentFolder);
 				if (selection.length() > 0 && selection.charAt(selection.length() - 1) == '/') { // a folder
 					currentFolder = currentFolder + selection;
@@ -82,26 +83,25 @@ public class FolderSelectorDialog extends Dialog {
 					updateDirectory();
 					fileListView.scrollBy(0, 1);
 					fileListView.scrollBy(0, -1);
-				} else { // a file
-					dismiss();
-					Thread thread = new Thread() {
-						public void run() {
-							try {
-								String filename;
-								if (extension != null) {
-									filename = selection + extension;
-								} else {
-									filename = selection;
-								}
-								selectionListener.onFileselected(currentFolder + filename);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-							completeFileRead();
-						}
-					};
-					thread.start();
 				}
+			}
+		});
+		
+		Button selectButton = (Button)findViewById(R.id.selectButton);
+		selectButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				FolderSelectorDialog.this.dismiss();
+				Thread thread = new Thread() {
+					public void run() {
+						try {
+							selectionListener.onFolderSelected(currentFolder);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						completeFileRead();
+					}
+				};
+				thread.start();
 			}
 		});
 	}
@@ -180,9 +180,8 @@ public class FolderSelectorDialog extends Dialog {
 					e.printStackTrace();
 					activity.runOnUiThread(new Runnable() {
 						public void run() {
-							MessageDialog connectFailed = new MessageDialog(getContext(), "Connect Failed", "Cannot access the library.  Check connection to the internet.", new String[] { "OK" });
-							connectFailed.show();
-							FolderSelectorDialog.this.dismiss();
+							MessageDialog accessFailed = new MessageDialog(getContext(), "Access denied", "Cannot open the folder.", new String[] { "OK" });
+							accessFailed.show();
 						}
 					});
 				}
