@@ -19,4 +19,8 @@ MyAndroid contains modified versions of the following open source:
 
 - _aFileChooser_ by Paul Burke.  The original is at https://github.com/iPaulPro/aFileChooser.  Apache License.
 
+- _ambilwarna_ by Randy Sugianto.  The original is at https://github.com/yukuku/ambilwarna.  Apache LIcense.
+
+- _WavFile IO class_ by A. Greenstead.  The original is at http://www.labbookpages.co.uk.  License at http://www.labbookpages.co.uk/home/licences.html.
+
 I've left the original package names should you want to compare and update.  I highly appreciate the efforts of these developers and their generous donation to the open source community.
