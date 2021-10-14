@@ -9,8 +9,6 @@ The classes in this library fall into three groups:
 
 In addition, there are theming and translation classes.  
 
-Note that this project is still eclipse-based.  I haven't had much luck in converting to AndroidStudio, so am continuing to use eclipse (with the AndMore plugin).
-
 ## Acknowledgments
 
 MyAndroid contains modified versions of the following open source:
