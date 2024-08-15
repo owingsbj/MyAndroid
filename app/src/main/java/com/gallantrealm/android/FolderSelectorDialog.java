@@ -130,9 +130,9 @@ public class FolderSelectorDialog extends Dialog {
 				v = FileSelectorAdapter.this.inflater.inflate(R.layout.fileselector_item, parent, false);
 			}
 			String filename = FileSelectorAdapter.this.getItem(position).trim();
-			TextView icon = (TextView) v.findViewById(androidx.transition.R.id.icon);
+			TextView icon = (TextView) v.findViewById(R.id.icon);
 			icon.setTypeface(iconTypeface);
-			TextView text = (TextView) v.findViewById(androidx.transition.R.id.text);
+			TextView text = (TextView) v.findViewById(R.id.text);
 			if (filename.endsWith("/")) {
 				icon.setText(getContext().getString(R.string.icon_folder));
 			} else {
