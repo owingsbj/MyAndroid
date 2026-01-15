@@ -399,7 +399,6 @@ public class KeyboardControl extends LinearLayout implements OnTouchListener {
 
 	private View getKeyForNote(int note) {
 		note = note - 48;
-		System.out.println(note);
 		if (note <= 0) {
 			return key1;
 		} else if (note == 1) {
